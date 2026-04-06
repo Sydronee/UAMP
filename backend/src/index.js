@@ -6,10 +6,14 @@ const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const applicationRoutes = require('./routes/applicationRoutes');
 const testRoutes = require('./routes/testRoutes');
+const path = require('path');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Serve uploads folder as static files
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Basic Rate Limiting
 const authLimiter = rateLimit({

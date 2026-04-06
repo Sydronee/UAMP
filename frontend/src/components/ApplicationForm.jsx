@@ -102,18 +102,19 @@ export default function MultiStepApplicationForm() {
     setIsSubmitting(true);
 
     try {
-      const payload = {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        program: formData.program,
-        gpa: formData.gpa
-      };
+      const payload = new FormData();
+      payload.append('firstName', formData.firstName);
+      payload.append('lastName', formData.lastName);
+      payload.append('email', formData.email);
+      payload.append('program', formData.program);
+      payload.append('gpa', formData.gpa);
+      
+      if (formData.transcript) payload.append('transcript', formData.transcript);
+      if (formData.idDocument) payload.append('idDocument', formData.idDocument);
 
       const response = await fetch('http://localhost:3000/api/applications', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: payload,
       });
 
       if (!response.ok) {

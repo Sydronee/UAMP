@@ -221,14 +221,18 @@ export default function AdminDashboard() {
                <div>
                  <h3 className="text-sm font-semibold uppercase text-gray-400 tracking-wider mb-2">Attached Documents</h3>
                  <div className="border border-gray-200 rounded-lg divide-y bg-gray-50">
-                    <div className="p-3 flex justify-between items-center bg-white">
-                      <span className="text-sm font-medium text-gray-700">Transcript.pdf</span>
-                      <button className="text-xs text-indigo-600 border border-indigo-600 px-2 py-1 rounded hover:bg-indigo-50">View</button>
-                    </div>
-                    <div className="p-3 flex justify-between items-center bg-white">
-                      <span className="text-sm font-medium text-gray-700">ID_Passport.jpg</span>
-                      <button className="text-xs text-indigo-600 border border-indigo-600 px-2 py-1 rounded hover:bg-indigo-50">View</button>
-                    </div>
+                    {selectedApp.documents && selectedApp.documents.length > 0 ? (
+                      selectedApp.documents.map((doc, idx) => (
+                        <div key={idx} className="p-3 flex justify-between items-center bg-white">
+                          <span className="text-sm font-medium text-gray-700">{doc.file_type.replace('_', ' ')}</span>
+                          <a href={`http://localhost:3000/uploads/${doc.file_url}`} target="_blank" rel="noreferrer" className="text-xs text-indigo-600 border border-indigo-600 px-2 py-1 rounded hover:bg-indigo-50">
+                            View
+                          </a>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="p-3 text-sm text-gray-500 bg-white">No documents uploaded.</div>
+                    )}
                  </div>
                </div>
 

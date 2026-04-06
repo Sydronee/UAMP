@@ -23,7 +23,7 @@ class ApplicationController {
                 userId = info.lastInsertRowid;
             }
             
-            const newAppId = await ApplicationService.createApplication(userId, data);
+            const newAppId = await ApplicationService.createApplication(userId, data, req.files);
             res.status(201).json({ message: 'Application submitted successfully', data: { id: newAppId } });
         } catch (error) {
             console.error(error);
