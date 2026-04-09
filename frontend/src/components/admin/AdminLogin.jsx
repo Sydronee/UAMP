@@ -51,8 +51,8 @@ export default function AdminLogin() {
         <form className="mt-8 space-y-6" onSubmit={handleLogin} data-testid="admin-login-form">
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label className="sr-only">Email address</label>
-              <input name="email" type="email" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address" value={email} onChange={e => setEmail(e.target.value)} data-testid="login-input-email" />
+              <label className="sr-only">Username or email</label>
+              <input name="email" type="text" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Username or email" value={email} onChange={e => setEmail(e.target.value)} data-testid="login-input-email" />
             </div>
             <div>
               <label className="sr-only">Password</label>

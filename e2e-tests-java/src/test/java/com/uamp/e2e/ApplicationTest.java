@@ -52,10 +52,18 @@ public class ApplicationTest {
         fillInput("input-firstname", "John");
         fillInput("input-lastname", "Doe");
         fillInput("input-email", "john.doe@test.com");
+        fillInput("input-phone", "9876543210");
+        fillInput("input-dob", "01-01-2005");
+        selectOption("select-gender", "Male");
+        fillInput("input-address", "12 Main Street");
+        fillInput("input-city", "Boston");
+        fillInput("input-state", "MA");
+        fillInput("input-country", "USA");
+        fillInput("input-postalcode", "02110");
         clickElement("next-btn-1");
 
         // Step 2: Academic Info
-        fillInput("input-gpa", "3.8");
+        fillInput("input-gpa", "8.8");
         
         // Handling the Select specifically
         WebElement programSelect = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("select[data-testid='select-program']")));
@@ -63,6 +71,12 @@ public class ApplicationTest {
         visualPause(1000);
         new Select(programSelect).selectByVisibleText("Computer Science");
         visualPause(GLOBAL_PAUSE_MS);
+
+        fillInput("input-highschool", "Central High School");
+        fillInput("input-graduation-year", "2024");
+        fillInput("input-entrance-score", "85");
+        selectOption("select-intake", "Fall");
+        fillTextArea("input-sop", "I am excited to study computer science and contribute to impactful software projects that solve social and technical problems.");
 
         clickElement("next-btn-2");
 
@@ -127,6 +141,14 @@ public class ApplicationTest {
         fillInput("input-firstname", "Alice");
         fillInput("input-lastname", "Smith");
         fillInput("input-email", "alice@test.com");
+        fillInput("input-phone", "9988776655");
+        fillInput("input-dob", "01-01-2006");
+        selectOption("select-gender", "Female");
+        fillInput("input-address", "45 Lake Road");
+        fillInput("input-city", "Austin");
+        fillInput("input-state", "TX");
+        fillInput("input-country", "USA");
+        fillInput("input-postalcode", "73301");
         clickElement("next-btn-1");
 
         // Verify we are on Step 2
@@ -157,15 +179,28 @@ public class ApplicationTest {
         fillInput("input-firstname", "Bob");
         fillInput("input-lastname", "Builder");
         fillInput("input-email", "bob@test.com");
+        fillInput("input-phone", "9123456789");
+        fillInput("input-dob", "01-01-2004");
+        selectOption("select-gender", "Male");
+        fillInput("input-address", "22 Workshop Ave");
+        fillInput("input-city", "Chicago");
+        fillInput("input-state", "IL");
+        fillInput("input-country", "USA");
+        fillInput("input-postalcode", "60601");
         clickElement("next-btn-1");
 
         // Step 2
-        fillInput("input-gpa", "4.0");
+        fillInput("input-gpa", "9.0");
         WebElement programSelect = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("select[data-testid='select-program']")));
         highlight(programSelect);
         visualPause(500);
         new Select(programSelect).selectByVisibleText("Engineering");
         visualPause(500);
+        fillInput("input-highschool", "City Public School");
+        fillInput("input-graduation-year", "2023");
+        fillInput("input-entrance-score", "90");
+        selectOption("select-intake", "Spring");
+        fillTextArea("input-sop", "I want to become an engineer focused on sustainable infrastructure and practical systems for growing cities.");
         clickElement("next-btn-2");
 
         // Step 3 (No documents, submitting)
@@ -196,7 +231,7 @@ public class ApplicationTest {
         visualPause(1000);
 
         // Login with potential credentials
-        fillInput("login-input-email", "admin@uamp.com");
+        fillInput("login-input-email", "admin");
         fillInput("login-input-password", "admin123");
         clickElement("login-submit-btn");
 
@@ -239,6 +274,23 @@ public class ApplicationTest {
         highlight(el);
         visualPause(1000); 
         el.click();
+    }
+
+    private void selectOption(String testId, String visibleText) {
+        WebElement el = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("select[data-testid='" + testId + "']")));
+        highlight(el);
+        visualPause(500);
+        new Select(el).selectByVisibleText(visibleText);
+        visualPause(500);
+    }
+
+    private void fillTextArea(String testId, String text) {
+        WebElement el = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("textarea[data-testid='" + testId + "']")));
+        highlight(el);
+        visualPause(500);
+        el.clear();
+        el.sendKeys(text);
+        visualPause(GLOBAL_PAUSE_MS);
     }
 
     private void visualPause(int ms) {
