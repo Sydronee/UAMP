@@ -214,7 +214,7 @@ export default function AdminDashboard() {
                  <div className="bg-gray-50 p-3 rounded-lg border text-sm">
                    <p><span className="font-medium">Email:</span> {selectedApp.email}</p>
                    <p><span className="font-medium">Program:</span> {selectedApp.course}</p>
-                   <p><span className="font-medium">GPA:</span> {selectedApp.gpa} / 4.0</p>
+                   <p><span className="font-medium">GPA:</span> {selectedApp.gpa} / 10.0</p>
                  </div>
                </div>
 
