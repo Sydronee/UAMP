@@ -4,12 +4,49 @@ class ApplicationService {
     static async createApplication(userId, data, files) {
         const registerTx = db.transaction(() => {
             // Update Profile
-            const profileStmt = db.prepare('UPDATE Profiles SET first_name = ?, last_name = ? WHERE user_id = ?');
-            profileStmt.run(data.firstName, data.lastName, userId);
+            const profileStmt = db.prepare(`
+                UPDATE Profiles
+                SET first_name = ?, last_name = ?, phone = ?, address = ?, date_of_birth = ?, gender = ?, city = ?, state = ?, country = ?, postal_code = ?
+                WHERE user_id = ?
+            `);
+            profileStmt.run(
+                data.firstName,
+                data.lastName,
+                data.phone,
+                data.address,
+                data.dateOfBirth,
+                data.gender,
+                data.city,
+                data.state,
+                data.country,
+                data.postalCode,
+                userId
+            );
 
             // Insert Application
-            const appStmt = db.prepare('INSERT INTO Applications (user_id, course, gpa) VALUES (?, ?, ?)');
-            const info = appStmt.run(userId, data.program, data.gpa || 0);
+            const appStmt = db.prepare(`
+                INSERT INTO Applications (
+                    user_id,
+                    course,
+                    gpa,
+                    entrance_exam_score,
+                    high_school_name,
+                    graduation_year,
+                    preferred_intake,
+                    statement_of_purpose
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            `);
+            const info = appStmt.run(
+                userId,
+                data.program,
+                data.gpa,
+                data.entranceExamScore ?? 0,
+                data.highSchoolName,
+                data.graduationYear,
+                data.preferredIntake,
+                data.statementOfPurpose
+            );
 
             const appId = info.lastInsertRowid;
 
@@ -32,7 +69,29 @@ class ApplicationService {
 
     static async getAllApplications() {
         const apps = db.prepare(`
-            SELECT a.id, a.user_id, u.email, p.first_name, p.last_name, a.course, a.gpa, a.entrance_exam_score, a.status, a.submission_date 
+            SELECT
+                a.id,
+                a.user_id,
+                u.email,
+                p.first_name,
+                p.last_name,
+                p.phone,
+                p.address,
+                p.date_of_birth,
+                p.gender,
+                p.city,
+                p.state,
+                p.country,
+                p.postal_code,
+                a.course,
+                a.gpa,
+                a.entrance_exam_score,
+                a.high_school_name,
+                a.graduation_year,
+                a.preferred_intake,
+                a.statement_of_purpose,
+                a.status,
+                a.submission_date
             FROM Applications a
             JOIN Users u ON a.user_id = u.id
             JOIN Profiles p ON u.id = p.user_id

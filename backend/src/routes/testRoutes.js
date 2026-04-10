@@ -13,6 +13,9 @@ router.post('/reset', async (req, res) => {
             -- Reset Auto-Increment Counters
             DELETE FROM sqlite_sequence WHERE name IN ('Documents', 'Applications', 'Profiles', 'Users');
         `);
+        if (typeof db.ensureDefaultAdmin === 'function') {
+            db.ensureDefaultAdmin();
+        }
         res.status(200).json({ message: 'Database reset successful' });
     } catch (error) {
         console.error(error);
