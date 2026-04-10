@@ -210,11 +210,31 @@ export default function AdminDashboard() {
             
             <div className="flex-1 p-6 overflow-auto space-y-6">
                <div>
-                 <h3 className="text-sm font-semibold uppercase text-gray-400 tracking-wider mb-2">Profile Details</h3>
-                 <div className="bg-gray-50 p-3 rounded-lg border text-sm">
+                 <h3 className="text-sm font-semibold uppercase text-gray-400 tracking-wider mb-2">Personal Information</h3>
+                 <div className="bg-gray-50 p-3 rounded-lg border text-sm grid grid-cols-1 sm:grid-cols-2 gap-2">
                    <p><span className="font-medium">Email:</span> {selectedApp.email}</p>
+                   <p><span className="font-medium">Phone:</span> {selectedApp.phone || 'N/A'}</p>
+                   <p><span className="font-medium">Date of Birth:</span> {selectedApp.date_of_birth ? new Date(selectedApp.date_of_birth).toLocaleDateString() : 'N/A'}</p>
+                   <p><span className="font-medium">Gender:</span> {selectedApp.gender || 'N/A'}</p>
+                   <p className="sm:col-span-2"><span className="font-medium">Address:</span> {[selectedApp.address, selectedApp.city, selectedApp.state, selectedApp.country, selectedApp.postal_code].filter(Boolean).join(', ') || 'N/A'}</p>
+                 </div>
+               </div>
+
+               <div>
+                 <h3 className="text-sm font-semibold uppercase text-gray-400 tracking-wider mb-2">Academic Profile</h3>
+                 <div className="bg-gray-50 p-3 rounded-lg border text-sm grid grid-cols-1 sm:grid-cols-2 gap-2">
                    <p><span className="font-medium">Program:</span> {selectedApp.course}</p>
+                   <p><span className="font-medium">Preferred Intake:</span> {selectedApp.preferred_intake || 'N/A'}</p>
                    <p><span className="font-medium">GPA:</span> {selectedApp.gpa} / 10.0</p>
+                   <p><span className="font-medium">Entrance Exam:</span> {selectedApp.entrance_exam_score || 'N/A'}</p>
+                   <p className="sm:col-span-2"><span className="font-medium">High School:</span> {selectedApp.high_school_name || 'N/A'} (Class of {selectedApp.graduation_year || 'N/A'})</p>
+                 </div>
+               </div>
+
+               <div>
+                 <h3 className="text-sm font-semibold uppercase text-gray-400 tracking-wider mb-2">Statement of Purpose</h3>
+                 <div className="bg-gray-50 p-4 rounded-lg border text-sm whitespace-pre-wrap text-gray-700 italic">
+                   {selectedApp.statement_of_purpose ? `"${selectedApp.statement_of_purpose}"` : <span className="text-gray-400">No statement provided.</span>}
                  </div>
                </div>
 
